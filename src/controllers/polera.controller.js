@@ -1,4 +1,4 @@
-import { Polera } from "../src/models/polera.model,js";
+import { Polera } from "../models/polera.model.js"
 
 // metodo GET para poleras
 export const getAllPoleras = async (req, res) => {
