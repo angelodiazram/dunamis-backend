@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import polerasRouter from './src/routes/poleras.routes.js'
+
+import polerasRouter from './src/routes/poleras.routes.js';
+import usuariosRouter from './src/routes/user.routes.js';
 
 import { db } from './config/db.config.js';
 
@@ -18,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 // middlewares de rutas:
 app.use('/api/v1', polerasRouter)
+app.use('/api/v1', usuariosRouter)
 
 //! EJECUCICÓN DE CONFIGURACIÓN DE BASE DE DATOS
 db();

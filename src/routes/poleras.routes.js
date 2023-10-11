@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { createPolera, getAllPoleras, updatePoleraBySku } from '../controllers/polera.controller.js';
+import { createPolera, deletePoleraBySku, getAllPoleras, updatePoleraBySku } from '../controllers/polera.controller.js';
 
 const router = express.Router();
 
@@ -13,5 +13,7 @@ router.post('/poleras', createPolera);
 //RUTA PARA CAPTAR UNA POLERA POR SU SKU Y ACTUALIZARLO
 router.put('/poleras/:sku', updatePoleraBySku);
 
+// RUTA PARA ELIMINAR UNA POLERA AL MOMENTO DE SER VENDIDA
+router.delete('/poleras/:sku', deletePoleraBySku);
 
 export default router;
