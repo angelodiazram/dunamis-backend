@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
-import { Polera } from "../models/polera.model.js"
+
+import { Polera } from "../models/Polera.model.js"
 
 // metodo GET para poleras
 export const getAllPoleras = async (req, res) => {
