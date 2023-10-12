@@ -1,4 +1,4 @@
-import { jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 // !LOS MIDDLEWARE TIENE 3 PARAMETROS SIEMPRE (el mismo que todos los metodos de express incluido el "next"):
 export const authRequire = (req, res, next) => {

@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { createPolera, deletePoleraBySku, getAllPoleras, updatePoleraBySku } from '../controllers/polera.controller.js';
+import { authRequire } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
@@ -11,9 +12,9 @@ router.get('/poleras', getAllPoleras);
 router.post('/poleras', createPolera);
 
 //RUTA PARA CAPTAR UNA POLERA POR SU SKU Y ACTUALIZARLO
-router.put('/poleras/:sku', updatePoleraBySku);
+router.put('/poleras/:sku',authRequire ,updatePoleraBySku);
 
 // RUTA PARA ELIMINAR UNA POLERA AL MOMENTO DE SER VENDIDA
-router.delete('/poleras/:sku', deletePoleraBySku);
+router.delete('/poleras/:sku', authRequire, deletePoleraBySku);
 
 export default router;

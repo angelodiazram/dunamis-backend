@@ -12,6 +12,17 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
+export const getUserByRut = async (req, res) => {
+    try {
+        const { rut } = req.params;
+
+        const getUser = await Usuario.findOne({ rut: rut })
+        res.status(200).json(getUser)
+    } catch (error) {
+        res.status(404).json({message: 'no pudimos encontrar al usuario'})
+    }
+}
+
 // metodo POST para crear usuarios
 export const signUp = async (req, res) => {
     try {

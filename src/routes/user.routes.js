@@ -1,9 +1,12 @@
 import express from 'express';
-import { getAllUsers, login, signUp } from '../controllers/user.controller.js';
+import { getAllUsers, getUserByRut, login, signUp } from '../controllers/user.controller.js';
+import { authRequire } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/usuarios', getAllUsers);
+router.get('/usuarios',authRequire ,getAllUsers);
+
+router.get('/usuarios/:rut',authRequire ,getUserByRut);
 
 router.post('/usuarios', signUp);
 
