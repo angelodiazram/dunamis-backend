@@ -1,6 +1,6 @@
 export const corsOptions={
     origin:[
-        'http://localhost:4001/'
+        'http://localhost:5000/'
     ],
     optionsSucessStatus: 200
 }
