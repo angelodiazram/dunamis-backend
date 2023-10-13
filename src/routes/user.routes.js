@@ -4,9 +4,9 @@ import { authRequire } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/usuarios',authRequire ,getAllUsers);
+router.get('/usuarios' ,getAllUsers);
 
-router.get('/usuarios/:rut',authRequire ,getUserByRut);
+router.get('/usuarios/:rut', getUserByRut);
 
 router.post('/usuarios', signUp);
 
