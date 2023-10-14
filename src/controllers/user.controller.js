@@ -112,10 +112,10 @@ export const updateUser = async (req, res) => {
 
         const updateUser = await Usuario.findOneAndUpdate({ email: userEmail }, updateData, { new: true })
         if(!updateUser) {
-            return res.status(404).json({ message: 'El corre no existe' })
+            return res.status(404).json({ message: 'El correo no existe' })
         }
 
-        const {name, last_name} = updateUser;
+        const { name, last_name } = updateUser;
 
         res.status(202).json({ message: `El usuario ${name} ${last_name} ha sido actualizado con éxito`})
     } catch (error) {

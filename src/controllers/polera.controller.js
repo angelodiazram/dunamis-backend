@@ -62,3 +62,43 @@ export const deletePoleraBySku = async (req, res) => {
         
     }
 }
+
+//METODO PARA ACTUALIZAR LA INFORMACIÓN DE UNA POLERA
+
+export const updatePolera = async (req, res) => {
+    try {
+        const poleraSku = req.params.rut;
+        const updateData = req.body;
+
+        const updatePolera = await Usuario.findOneAndUpdate({ SKU: poleraSku  }, updateData, { new: true })
+        if(!updatePolera) {
+            return res.status(404).json({ message: 'La polera no se encuentra en la base de datos' })
+        }
+        
+        const { SKU } = updatePolera;
+        
+        res.status(202).json({ message: `La polera con el SKU: ${SKU} ha sido actualizada`})
+    } catch (error) {
+        res.status(500).json({ message: 'No es posible actualizar el producto' })
+    }
+}
+
+// METODO PARA ELIMINAR UNA POLERA 
+
+export const deletePolera = async (req, res) => {
+    try {
+        const poleraSku = req.params.sku
+
+        const removePolera = await Polera.findOneAndDelete({ SKU: poleraSku })
+        if(!removePolera) {
+            return res.status(404).json({ message: 'No se ha encontrado al usuario para eliminar'})
+        }
+        
+        const { SKU } = removePolera
+        res.status(202).json({ message: `La polera con el SKU: ${SKU} ha sido removida`})
+        
+    } catch (error) {
+       res.status.json({ message: 'No es posible elinminar al usuario'}) 
+    }
+    
+}

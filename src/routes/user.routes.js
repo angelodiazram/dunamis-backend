@@ -17,6 +17,3 @@ router.put('/usuarios/:email', updateUser);
 router.delete('/usuarios/:email', deleteUser);
 
 export default router;
-
-
-

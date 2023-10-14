@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 export const db = async () => { //! esta función se debe ejecutar en el servidor
     try {
