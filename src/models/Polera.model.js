@@ -8,4 +8,4 @@ const poleraSchema = new Schema({
     SKU: {type: Number, require: true, unique: true}
 }, {versionKey: false})
 
-export const Polera = mongoose.model('poleras', poleraSchema)
+export const Polera = mongoose.model('polera', poleraSchema)
