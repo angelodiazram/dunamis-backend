@@ -133,6 +133,7 @@ export const deleteUser = async (req, res) => {
             return res.status(404).json({ message: 'No se ha encontrado al usuario para eliminar'})
         }
         
+        const {name, last_name} = removeUser;
         res.status(202).json({ message: `El usuario ${name} ${last_name} ha sido eliminado con éxito`})
         
     } catch (error) {
