@@ -51,7 +51,23 @@ export const signUp = async (req, res) => {
         });
 
         const saveUsuario = await newUsuario.save();
-        res.status(201).json({message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`});
+
+        const expireTime = Math.floor(new Date()/ 1000) + 3600
+
+        const token = jwt.sign({
+            exp: expireTime,
+            data: {
+                id: {
+                    id: verifyEmailUser._id,
+                    email: verifyEmailUser.email,
+                    name: verifyEmailUser.name,
+                    last_name: verifyEmailUser.last_name
+                }
+            }
+        }, process.env.SECRET_KEY);
+
+
+        res.status(201).json({message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`, token, user: saveUsuario});
         console.log(req.body);
     } catch (error) {
         res.status(500).json({message: 'El usuario no ha podido ser registrado'})
