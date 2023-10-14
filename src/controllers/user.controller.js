@@ -104,6 +104,42 @@ export const login = async (req, res) => {
     }
 }
 
+// METODO PUT PARA ACTUALIZAR A LOS USUARIOS REGISTRADOS
+export const updateUser = async (req, res) => {
+    try {
+        const userEmail = req.params.rut;
+        const updateData = req.body;
+
+        const updateUser = await Usuario.findOneAndUpdate({ email: userEmail }, updateData, { new: true })
+        if(!updateUser) {
+            return res.status(404).json({ message: 'El corre no existe' })
+        }
+
+        const {name, last_name} = updateUser;
+
+        res.status(202).json({ message: `El usuario ${name} ${last_name} ha sido actualizado con éxito`})
+    } catch (error) {
+        res.status(500).json({ message: 'No es posible actualizar al usuario' })
+    }
+}
+
+// METODO DELETE PARA ELIMINAR A LOS USUARIOS REGISTRADOS
+export const deleteUser = async (req, res) => {
+    try {
+        const userEmail = req.params.email
+    
+        const removeUser = await Usuario.findOneAndDelete({ email: userEmail })
+        if(!removeUser) {
+            return res.status(404).json({ message: 'No se ha encontrado al usuario para eliminar'})
+        }
+        
+        res.status(202).json({ message: `El usuario ${name} ${last_name} ha sido eliminado con éxito`})
+        
+    } catch (error) {
+       res.status.json({ message: 'No es posible elinminar al usuario'}) 
+    }
+    
+}
 
 
 
