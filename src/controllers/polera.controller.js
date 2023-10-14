@@ -9,7 +9,19 @@ export const getAllPoleras = async (req, res) => {
     } catch (error) {
         res.status(404).json({message: 'No pudimos encontrar las poleras'})
     }
-} 
+}
+
+// METODO PARA ENCONTRAR UNA SOLA POLERA USANDO SU SKU
+export const getPoleraBySku = async (req, res) => {
+    try {
+        const { sku } = req.params;
+        const getPolera = await Polera.findOne({ SKU: sku })
+        
+        res.status(200).json(getPolera)
+    } catch (error) {
+        res.status(404).json({ message: 'no pudimos encontra el producto'})
+    }
+}
 
 // metodo POST para crar nuevas poleras
 export const createPolera = async (req, res) => {
@@ -22,27 +34,6 @@ export const createPolera = async (req, res) => {
         res.status(500).json({message: `No pudimos crear el producto nuevo`})
     }
 }
-
-//metodo PUT para actualizar alguna polera utilizando si SKU como identificador
-export const updatePoleraBySku = async (req, res) => {
-    try {
-        const poleraSku = req.params.sku //! debe ser el mismo nombre puesto en la ruta "sku" para poder obtenerlo del "params"
-        console.log(poleraSku);
-        const updateDataPolera = req.body
-        const updatePolera = await Polera.findOneAndUpdate({ SKU: poleraSku }, updateDataPolera, { new: true }) 
-            /*
-                Este metodo de mongoose permite encontrar un documento por medio de una propiedad de este
-                y actualizarlo
-            */
-        if (!updatePolera) {
-            return res.status(404).json({message: 'Polera no encontrada'})
-        }
-        res.status(202).json({message: `El producto ${updatePolera} ha sido actualizado con éxito`})
-    } catch (error) {
-        res.status(500).json({message: `No pudimos actualizar el producto el producto nuevo`})
-    }
-}
-
 
 // metodo DELETE para eliminar una polera de la base de datos, al momento de ser comprada
 
