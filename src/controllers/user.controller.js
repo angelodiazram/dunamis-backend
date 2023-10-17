@@ -58,17 +58,23 @@ export const signUp = async (req, res) => {
             exp: expireTime,
             data: {
                 id: {
-                    id: verifyEmailUser._id,
-                    email: verifyEmailUser.email,
-                    name: verifyEmailUser.name,
-                    last_name: verifyEmailUser.last_name
+                    id: _id,
+                    email: email,
+                    name: name,
+                    last_name: last_name
                 }
             }
         }, process.env.SECRET_KEY);
 
 
-        res.status(201).json({message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`, token, user: saveUsuario});
+        res.status(201).json({
+            message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`, 
+            token, 
+            user: saveUsuario
+        });
+
         console.log(req.body);
+
     } catch (error) {
         res.status(500).json({message: 'El usuario no ha podido ser registrado'})
         console.log(req.body);
@@ -87,7 +93,7 @@ export const login = async (req, res) => {
         }
 
         // verificar su la contraseña esta correcta:
-        const verifyPassUser = await bcrypt.compare(pass, verifyEmailUser.pass)
+        const verifyPassUser = bcrypt.compare(pass, verifyEmailUser.pass)
         if (!verifyPassUser) {
             return res.status(403).json({ message: 'La contraseña no es válida'})
         }
@@ -100,14 +106,16 @@ export const login = async (req, res) => {
         */
         const expireTime = Math.floor(new Date()/ 1000) + 3600
 
+        const { _id, name, last_name } = verifyEmailUser
+
         const token = jwt.sign({
             exp: expireTime,
             data: {
                 id: {
-                    id: verifyEmailUser._id,
-                    email: verifyEmailUser.email,
-                    name: verifyEmailUser.name,
-                    last_name: verifyEmailUser.last_name
+                    id: _id,
+                    email: email,
+                    name: name,
+                    last_name: last_name
                 }
             }
         }, process.env.SECRET_KEY);
@@ -117,6 +125,15 @@ export const login = async (req, res) => {
 
     } catch (error) {
         res.status(403).json({ message: 'no pudimos verificar tu cuenta'})
+    }
+}
+
+export const verifyUserToken = async(req, res) => {
+    try {
+        const user = await Usuario.findById(re.data.id).select('-pass')
+        res.json(user)
+    } catch (error) {
+        return res.status(500).json({ message: 'No pudimos verificar al usuario'})
     }
 }
 
