@@ -120,7 +120,7 @@ export const login = async (req, res) => {
             }
         }, process.env.SECRET_KEY);
 
-        res.json(token);
+        res.json({token, user: verifyEmailUser});
         res.send(console.log('Usuario ingresado'));
 
     } catch (error) {
@@ -130,10 +130,10 @@ export const login = async (req, res) => {
 
 export const verifyUserToken = async(req, res) => {
     try {
-        const user = await Usuario.findById(re.data.id).select('-pass')
+        const user = await Usuario.findById(req.data.id).select('-pass')
         res.json(user)
     } catch (error) {
-        return res.status(500).json({ message: 'No pudimos verificar al usuario'})
+        return res.status(500).json({ message: 'No pudimos verificar el token del usuario'})
     }
 }
 

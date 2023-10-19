@@ -1,7 +1,7 @@
 import express from 'express';
 import { deleteUser, getAllUsers, getUserByRut, login, signUp, updateUser, verifyUserToken } from '../controllers/user.controller.js';
 import { authRequire } from '../middlewares/auth.middleware.js';
-// import { authRequire } from '../middlewares/auth.middleware.js';
+import { authRequire } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
