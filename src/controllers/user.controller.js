@@ -22,8 +22,8 @@ export const getUserByRut = async (req, res) => {
         res.status(404).json({message: 'no pudimos encontrar al usuario'})
     }
 }
-
-// metodo POST para crear usuarios
+//
+//* ******************* METODO POST PARA HACER EL SIGN UP DEL USUARIO (CREACIÓN) ****************************
 export const signUp = async (req, res) => {
     try {
         const {email, pass, name, last_name, rut, adress} = req.body;
@@ -32,11 +32,10 @@ export const signUp = async (req, res) => {
         if (!email || !pass || !name || !last_name || !rut || !adress) {
             return res.status(400).json({message: 'Debes rellenar todos los campos'})
         }
-
         // verificación para ver si el usuarios existe
         const verifyUser = await Usuario.findOne({ rut: rut });
         if (verifyUser) {
-            res.status(500).json({message: 'El rut ingresado ya tiene una cuenta'});
+            res.status(410).json({message: 'El rut ingresado ya tiene una cuenta'});
         }
         // generación de contraseña encriptada:
         const passEncrypt = await bcrypt.hash(pass , 10)
@@ -52,52 +51,36 @@ export const signUp = async (req, res) => {
 
         const saveUsuario = await newUsuario.save();
 
-        const expireTime = Math.floor(new Date()/ 1000) + 3600
-
-        const token = jwt.sign({
-            exp: expireTime,
-            data: {
-                id: {
-                    id: _id,
-                    email: email,
-                    name: name,
-                    last_name: last_name
-                }
-            }
-        }, process.env.SECRET_KEY);
-
-
-        res.status(201).json({
-            message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`, 
-            token, 
-            user: saveUsuario
-        });
-
-        console.log(req.body);
+        res.status(201).json({ message: `El usuario ${saveUsuario.name} ${saveUsuario.last_name} se ha creado con éxito`});
 
     } catch (error) {
         res.status(500).json({message: 'El usuario no ha podido ser registrado'})
-        console.log(req.body);
     }
 }
+//* *****************************************************************************************************************
 
+//* ********************** METODO POST PARA HACER EL LOGIN DE USUARIOS ******************************
 export const login = async (req, res) => {
     try {
         const { email, pass } = req.body;
+        console.log(pass)
 
-        const verifyEmailUser = await Usuario.findOne({ email: email })
+        const verifyUserByEmail = await Usuario.findOne({ email: email })
 
         // verificación para saber si el correo existe
-        if (!verifyEmailUser) {
+        if (!verifyUserByEmail) {
             return res.status(404).json({ message: 'El correo del usuario no ha sido encontrado'})
         }
 
         // verificar su la contraseña esta correcta:
-        const verifyPassUser = bcrypt.compare(pass, verifyEmailUser.pass)
+        const verifyPassUser = await bcrypt.compare(pass, verifyUserByEmail.pass)
+        
+        console.log(verifyPassUser)
+
         if (!verifyPassUser) {
             return res.status(403).json({ message: 'La contraseña no es válida'})
         }
-
+        console.log('Verificación de contraseña realizada con éxito');
         /*
         implementación de token para el login de los usuarios
         METODO sign:
@@ -106,34 +89,24 @@ export const login = async (req, res) => {
         */
         const expireTime = Math.floor(new Date()/ 1000) + 3600
 
-        const { _id, name, last_name } = verifyEmailUser
+        const { _id, name, last_name, adress } = verifyUserByEmail
 
         const token = jwt.sign({
             exp: expireTime,
             data: {
-                id: {
-                    id: _id,
-                    email: email,
-                    name: name,
-                    last_name: last_name
-                }
+                id: _id,
+                email: email,
+                name: name,
+                last_name: last_name,
+                adress: adress
             }
         }, process.env.SECRET_KEY);
 
-        res.json({token, user: verifyEmailUser});
+        res.json(token)
         res.send(console.log('Usuario ingresado'));
 
     } catch (error) {
         res.status(403).json({ message: 'no pudimos verificar tu cuenta'})
-    }
-}
-
-export const verifyUserToken = async(req, res) => {
-    try {
-        const user = await Usuario.findById(req.data.id).select('-pass')
-        res.json(user)
-    } catch (error) {
-        return res.status(500).json({ message: 'No pudimos verificar el token del usuario'})
     }
 }
 
