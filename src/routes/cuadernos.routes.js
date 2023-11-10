@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getAllCuadernos } from '../controllers/cuaderno.controller.js';
+import { createCuaderno, deleteCuaderno, getAllCuadernos, getCuadernosBySku, updateCuaderno } from '../controllers/cuaderno.controller.js';
 const router = express.Router();
 
 //RUTA CON METODO PARA VISUALIZAR TODAS LAS POLERAS
