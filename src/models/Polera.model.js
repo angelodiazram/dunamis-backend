@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
+
 const poleraSchema = new Schema({
     color: {type: String, require: true},
     talla: {type: String, require: true},
@@ -8,4 +9,4 @@ const poleraSchema = new Schema({
     SKU: {type: Number, require: true, unique: true}
 }, {versionKey: false})
 
-export const Polera = mongoose.model('polera', poleraSchema)
+export const Polera = mongoose.model('polera', poleraSchema);

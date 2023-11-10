@@ -58,10 +58,10 @@ export const deletePoleraBySku = async (req, res) => {
 
 export const updatePolera = async (req, res) => {
     try {
-        const poleraSku = req.params.rut;
+        const { sku } = req.params;
         const updateData = req.body;
 
-        const updatePolera = await Usuario.findOneAndUpdate({ SKU: poleraSku  }, updateData, { new: true })
+        const updatePolera = await Usuario.findOneAndUpdate({ SKU: sku  }, updateData, { new: true })
         if(!updatePolera) {
             return res.status(404).json({ message: 'La polera no se encuentra en la base de datos' })
         }
@@ -82,14 +82,14 @@ export const deletePolera = async (req, res) => {
 
         const removePolera = await Polera.findOneAndDelete({ SKU: poleraSku })
         if(!removePolera) {
-            return res.status(404).json({ message: 'No se ha encontrado al usuario para eliminar'})
+            return res.status(404).json({ message: 'No se ha encontrado la polera para eliminar'})
         }
         
         const { SKU } = removePolera
         res.status(202).json({ message: `La polera con el SKU: ${SKU} ha sido removida`})
         
     } catch (error) {
-       res.status.json({ message: 'No es posible elinminar al usuario'}) 
+       res.status(400).json({ message: 'No es posible elinminar la polera'}) 
     }
     
 }

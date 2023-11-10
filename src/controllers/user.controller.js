@@ -11,7 +11,7 @@ export const getAllUsers = async (req, res) => {
         res.status(404).json({message: 'no pudimos encontrar a los usuarios'})
     }
 }
-
+ 
 export const getUserByRut = async (req, res) => {
     try {
         const { rut } = req.params;
