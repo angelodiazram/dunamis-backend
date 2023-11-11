@@ -22,7 +22,7 @@ export const getUserByRut = async (req, res) => {
         res.status(404).json({message: 'no pudimos encontrar al usuario'})
     }
 }
-//
+
 //* ******************* METODO POST PARA HACER EL SIGN UP DEL USUARIO (CREACIÓN) ****************************
 export const signUp = async (req, res) => {
     try {

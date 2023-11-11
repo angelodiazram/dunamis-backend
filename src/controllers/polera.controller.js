@@ -35,25 +35,6 @@ export const createPolera = async (req, res) => {
     }
 }
 
-// metodo DELETE para eliminar una polera de la base de datos, al momento de ser comprada
-
-export const deletePoleraBySku = async (req, res) => {
-    try {
-        const poleraSku =  req.params.sku
-        const removePolera = await Polera.findOneAndDelete({ SKU: poleraSku })
-
-        if(!removePolera) {
-            return res.status(404).json({message: 'no se ha encontrado el producto a eliminar'})
-        } else {
-            res.status(202).json({message: `polera con SKU: ${removePolera.SKU} ha sido comprada con éxito`})
-        }
-        
-    } catch (error) {
-        res.status(500).json({message: `el producto a comprar no tiene stock`})
-        
-    }
-}
-
 //METODO PARA ACTUALIZAR LA INFORMACIÓN DE UNA POLERA
 
 export const updatePolera = async (req, res) => {
