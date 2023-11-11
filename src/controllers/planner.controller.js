@@ -7,9 +7,9 @@ export const getAllPlanners = async (req, res) => {
     try {
         const allPlanners = await Planner.find()
 
-        if(allPlanners = []) {
-            return res.status(404).json({ message: 'No hay stock del producto'})
-        }
+        // if(allPlanners = []) {
+        //     return res.status(404).json({ message: 'No hay stock del producto'})
+        // }
         
         res.status(200).json(allPlanners)
     } catch (error) {
