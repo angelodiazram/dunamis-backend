@@ -7,7 +7,7 @@ export const getAllCuadernos = async (req, res) => {
     try {
         const allCuadernos = await Cuaderno.find();
 
-        if(!allCuadernos) {
+        if(allCuadernos = []) {
             return res.status(404).json({ message: 'No hay stock del producto' });
         }
         
