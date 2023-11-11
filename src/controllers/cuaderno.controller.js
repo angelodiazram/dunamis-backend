@@ -5,13 +5,15 @@ import { Cuaderno } from '../models/Cuaderno.model.js';
 //? METODO GET PARA TRAER TODAS LOS CUADERNOS 'find()'
 export const getAllCuadernos = async (req, res) => {
     try {
-        const allCuadernos = await Cuaderno.find()
+        const allCuadernos = await Cuaderno.find();
+
         if(!allCuadernos) {
-            res.status(404).json({ message: 'No hay stock del producto' });
+            return res.status(404).json({ message: 'No hay stock del producto' });
         }
+        
         res.status(200).json(allCuadernos)
     } catch (error) {
-        res.status(404).json({ message: 'No pudimos encontrar los cuadernos' })
+        res.status(404).json({ message: 'No pudimos encontrar los cuadernos' });
     }
 }
 
@@ -20,9 +22,9 @@ export const getCuadernosBySku = async (req, res) => {
     try {
         const { sku } = req.params;
         const getCuaderno = await Cuaderno.findOne({ SKU: sku });
-
-        if(!getCuaderno){
-            res.status(404).json({ message: 'No hay stick del producto' });        
+        
+        if(!getCuaderno) {
+            return res.status(404).json({ message: 'No hay stock del producto' });
         }
 
         res.status(200).json(getCuaderno);
@@ -67,7 +69,7 @@ export const updateCuaderno = async (req, res) => {
 export const deleteCuaderno = async (req, res) => {
     try {
         const { sku } = req.params;
-        const removeCuaderno = await Cuaderno.findByIdAndDelete({ SKU: sku })
+        const removeCuaderno = await Cuaderno.findOneAndDelete({ SKU: sku })
         if(!removeCuaderno) {
             return res.status(404).json({ message: 'No se ha encontrado el cuaderno para eliminar'})
         }
