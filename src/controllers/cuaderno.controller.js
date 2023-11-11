@@ -6,6 +6,9 @@ import { Cuaderno } from '../models/Cuaderno.model.js';
 export const getAllCuadernos = async (req, res) => {
     try {
         const allCuadernos = await Cuaderno.find()
+        if(!allCuadernos) {
+            res.status(404).json({ message: 'No hay stock del producto' });
+        }
         res.status(200).json(allCuadernos)
     } catch (error) {
         res.status(404).json({ message: 'No pudimos encontrar los cuadernos' })
@@ -17,6 +20,10 @@ export const getCuadernosBySku = async (req, res) => {
     try {
         const { sku } = req.params;
         const getCuaderno = await Cuaderno.findOne({ SKU: sku });
+
+        if(!getCuaderno){
+            res.status(404).json({ message: 'No hay stick del producto' });        
+        }
 
         res.status(200).json(getCuaderno);
     } catch (error) {
