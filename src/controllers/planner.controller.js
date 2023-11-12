@@ -52,7 +52,7 @@ export const updatePlanner = async (req, res) => {
         const { sku } = req.params;
         const newData = req.body;
 
-        const updatePlanner = await Planner.findByIdAndUpdate({ SKU: sku}, newData, {new: true})
+        const updatePlanner = await Planner.findOneAndUpdate({ SKU: sku }, newData, {new: true})
         
         if(!updatePlanner) {
             return res.status(404).json({ message: 'El planner no se encuentra en la DB'})
