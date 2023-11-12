@@ -42,7 +42,7 @@ export const updatePolera = async (req, res) => {
         const { sku } = req.params;
         const updateData = req.body;
 
-        const updatePolera = await Usuario.findOneAndUpdate({ SKU: sku  }, updateData, { new: true })
+        const updatePolera = await Polera.findOneAndUpdate({ SKU: sku  }, updateData, { new: true })
         if(!updatePolera) {
             return res.status(404).json({ message: 'La polera no se encuentra en la base de datos' })
         }
