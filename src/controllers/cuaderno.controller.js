@@ -52,7 +52,7 @@ export const updateCuaderno = async (req, res) => {
         const { sku } = req.params;
         const newData = req.body;
 
-        const updateCuaderno = await Cuaderno.findByIdAndUpdate({ SKU: sku }, newData, { new: true })
+        const updateCuaderno = await Cuaderno.findOneAndUpdate({ SKU: sku }, newData, { new: true })
         if(!updateCuaderno) {
             return res.status(404).json({ message: 'El cuaderno no se encuentra en la base de datos'})
         }
