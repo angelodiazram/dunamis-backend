@@ -7,15 +7,15 @@ const router = express.Router();
 router.get('/planners', getAllPlanners);
 
 //RUTA PARA VISUALIZAR SOLO UN PLANNER UTILIZANDO SU SKU
-router.get('/planner/:sku', getPlannersBySku);
+router.get('/planners/:sku', getPlannersBySku);
 
 //RUTA CON METODO PARA CREAR NUEVOS PLANNERS EN LA TIENDA
-router.post('/planner', createPlanner);
+router.post('/planners', createPlanner);
 
 //RUTA PARA OBTENER UN PLANNER POR SU SKU Y ACTUALIZARLO
-router.put('/planner/:sku', updatePlanner);
+router.put('/planners/:sku', updatePlanner);
 
 // RUTA PARA ELIMINAR UNA POLERA AL MOMENTO DE SER VENDIDA
-router.delete('/planner/:sku', deletePlanner);
+router.delete('/planners/:sku', deletePlanner);
 
 export default router;
