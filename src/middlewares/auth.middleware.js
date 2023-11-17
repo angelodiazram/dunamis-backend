@@ -23,6 +23,7 @@ export const authRequire = (req, res, next) => {
         }
 
         req.data = decoded.data //? INFORMACIÓN ENVIADA POR EL REQUEST
+        
     } catch (error) {
         return res.status(401).json(error)
     }

@@ -110,6 +110,16 @@ export const login = async (req, res) => {
     }
 }
 
+// METODO PARA VERIFICAR USUARIOS POR MEDIO DE SU TOKEN:
+export const verifyUser = async (req, res) => {
+    try {
+        const user = await Usuario.findById(req.data.id).select('-pass')
+        res.json(user);
+    } catch (error) {
+        return res.status(500).json({ message: 'no pudimos verificar al usuario'})
+    }
+}
+
 // METODO PUT PARA ACTUALIZAR A LOS USUARIOS REGISTRADOS
 export const updateUser = async (req, res) => {
     try {
