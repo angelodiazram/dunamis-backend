@@ -105,6 +105,8 @@ export const login = async (req, res) => {
             }
         }, process.env.SECRET_KEY);
 
+        console.log(token)
+
         res.json(token)
         res.send(console.log('Usuario ingresado'));
 
