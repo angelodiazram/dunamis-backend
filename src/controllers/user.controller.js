@@ -38,7 +38,7 @@ export const signUp = async (req, res) => {
             res.status(410).json({message: 'El rut ingresado ya tiene una cuenta'});
         }
         // generación de contraseña encriptada:
-        const passEncrypt = await bcrypt.hash(pass , 10)
+        const passEncrypt = await bcrypt.hash(pass , 20)
 
         const newUsuario = new Usuario({
             email, 
@@ -64,8 +64,8 @@ export const signUp = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, pass } = req.body;
-        console.log(pass)
-
+        
+        console.log(email);
         const verifyUserByEmail = await Usuario.findOne({ email: email })
 
         // verificación para saber si el correo existe
