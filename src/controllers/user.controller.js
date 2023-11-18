@@ -26,7 +26,7 @@ export const getUserByRut = async (req, res) => {
 //* ******************* METODO POST PARA HACER EL SIGN UP DEL USUARIO (CREACIÓN) ****************************
 export const signUp = async (req, res) => {
     try {
-        const {email, pass, name, last_name, rut, adress} = req.body;
+        const {email, pass, name, last_name, rut, phone, adress} = req.body;
         
         // Validación para que los campos sean obligatorios 
         if (!email || !pass || !name || !last_name || !rut || !phone || !adress) {
