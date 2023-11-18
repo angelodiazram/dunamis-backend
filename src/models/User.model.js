@@ -6,7 +6,8 @@ const userSchema = new Schema({
     pass: {type: String, require: true},
     name: {type: String, require: true},
     last_name: {type: String, require: true},
-    rut: {type: String, require: true, unique: true}, 
+    rut: {type: String, require: true, unique: true},
+    phone: {type: String, require: true, unique: true}, 
     adress: {type: String, require: true}
 }, {versionKey: false})
 

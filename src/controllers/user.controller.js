@@ -29,7 +29,7 @@ export const signUp = async (req, res) => {
         const {email, pass, name, last_name, rut, adress} = req.body;
         
         // Validación para que los campos sean obligatorios 
-        if (!email || !pass || !name || !last_name || !rut || !adress) {
+        if (!email || !pass || !name || !last_name || !rut || !phone || !adress) {
             return res.status(400).json({message: 'Debes rellenar todos los campos'})
         }
         // verificación para ver si el usuarios existe
@@ -45,7 +45,8 @@ export const signUp = async (req, res) => {
             pass: passEncrypt,
             name, 
             last_name, 
-            rut, 
+            rut,
+            phone, 
             adress
         });
 
@@ -98,6 +99,8 @@ export const login = async (req, res) => {
                 email: email,
                 name: name,
                 last_name: last_name,
+                rut: rut,
+                phone: phone,
                 adress: adress
             }
         }, process.env.SECRET_KEY);

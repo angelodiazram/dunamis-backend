@@ -1,6 +1,6 @@
 import express from 'express';
 import { deleteUser, getAllUsers, getUserByRut, login, signUp, updateUser, verifyUser } from '../controllers/user.controller.js';
-import { authRequire } from '../middlewares/auth.middleware.js';
+// import { authRequire } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.post('/usuarios', signUp);
 
 router.post('/login', login);
 
-router.get('/verify-token', authRequire, verifyUser);
+// router.get('/verify-token', authRequire, verifyUser);
 
 router.put('/usuarios/:email', updateUser);
 
