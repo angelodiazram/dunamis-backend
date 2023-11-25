@@ -9,7 +9,7 @@ const userSchema = new Schema({
     last_name: {type: String, require: true},
     rut: {type: String, require: true, unique: true},
     phone: {type: String, require: true, unique: true}, 
-    adress: {type: String, require: true}
+    address: {type: String, require: true}
 }, {versionKey: false})
 
 export const Usuario = mongoose.model('usuario', userSchema);

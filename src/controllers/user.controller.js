@@ -26,10 +26,10 @@ export const getUserByRut = async (req, res) => {
 //* ******************* METODO POST PARA HACER EL SIGN UP DEL USUARIO (CREACIÓN) ****************************
 export const signUp = async (req, res) => {
     try {
-        const {email, pass, name, last_name, rut, phone, adress} = req.body;
+        const {email, pass, name, last_name, rut, phone, address} = req.body;
         
         // Validación para que los campos sean obligatorios 
-        if (!email || !pass || !name || !last_name || !rut || !phone || !adress) {
+        if (!email || !pass || !name || !last_name || !rut || !phone || !address) {
             return res.status(400).json({message: 'Debes rellenar todos los campos'})
         }
         // verificación para ver si el usuarios existe
@@ -47,7 +47,7 @@ export const signUp = async (req, res) => {
             last_name, 
             rut,
             phone, 
-            adress
+            address
         });
 
         const saveUsuario = await newUsuario.save();
@@ -90,7 +90,7 @@ export const login = async (req, res) => {
         */
         const expireTime = Math.floor(new Date()/ 1000) + 3600
 
-        const { _id, name, last_name, adress } = verifyUserByEmail
+        const { _id, name, last_name, rut, phone, address } = verifyUserByEmail
 
         const token = jwt.sign({
             exp: expireTime,
@@ -101,7 +101,7 @@ export const login = async (req, res) => {
                 last_name: last_name,
                 rut: rut,
                 phone: phone,
-                adress: adress
+                address: address
             }
         }, process.env.SECRET_KEY);
 
